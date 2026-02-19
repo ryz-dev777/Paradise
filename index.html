@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Loading...</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="refresh" content="3; url=beranda.html" />
+</head>
+<body>
+<style>
+  @font-face {
+    font-family: 'minecraft';
+    src: url('minercraftory.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  body {
+    background: #fffbea;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  span {
+    position: relative;
+    font-family: minecraft;
+    top: 20px;
+    color: forestgreen;
+    display: inline-block;
+    font-size: 13vw;
+    text-shadow: 0 1px 0 palegreen, 0 2px 0 palegreen, 0 3px 0 palegreen, 0 4px 0 palegreen, 0 5px 0 palegreen, 0 6px 0 transparent, 0 7px 0 transparent, 0 8px 0 transparent, 0 9px 0 transparent, 0 10px 10px rgba(0,0,0,0.5);
+    animation: bounce 0.5s ease infinite alternate;
+  }
+  
+  h1 span:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+  h1 span:nth-child(3) {
+    animation-delay: 0.2s;
+  }
+  h1 span:nth-child(4) {
+    animation-delay: 0.3s;
+  }
+  h1 span:nth-child(5) {
+    animation-delay: 0.4s;
+  }
+  h1 span:nth-child(6) {
+    animation-delay: 0.5s;
+  }
+  h1 span:nth-child(7) {
+    animation-delay: 0.6s;
+  }
+  
+  @keyframes bounce {
+    100% {
+      top: -10px;
+      text-shadow: 0 1px 0 palegreen, 0 2px 0 palegreen, 0 3px 0 palegreen, 0 4px 0 palegreen, 0 5px 0 palegreen, 0 6px 0 palegreen, 0 7px 0 palegreen, 0 8px 0 palegreen, 0 9px 0 palegreen, 0 30px 30px rgba(0,0,0,0.3);
+    }
+  }
+</style>
+  <h1>
+    <span>L</span>
+    <span>O</span>
+    <span>A</span>
+    <span>D</span>
+    <span>I</span>
+    <span>N</span>
+    <span>G</span>
+  </h1>
+</body>
+</html>

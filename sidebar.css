@@ -1,0 +1,228 @@
+@font-face {
+  font-family: 'minecraft';
+  src: url('minercraftory.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: lightgreen;
+  justify-content: center;
+  line-height: 1.6;
+}
+
+/* HEADER */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 48px;
+  background-color: forestgreen;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 60px;
+  box-sizing: border-box;
+  font-weight: 600;
+  font-size: 15px;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+/* MENU BTN */
+.menu-btn {
+  width: 30px;
+  height: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 11;
+}
+
+.menu-btn span {
+  display: block;
+  height: 4px;
+  background: white;
+  border-radius: 3px;
+  transform-origin: left center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* ANIMASI GARIS → PANAH */
+.menu-btn.active span:nth-child(1) {
+  transform: translateY(10.5px) translateX(2px) rotate(-40deg) scaleX(0.53);
+}
+.menu-btn.active span:nth-child(2) {
+  opacity: 1;
+  transform: translateY(0.2px);
+}
+.menu-btn.active span:nth-child(3) {
+  transform: translateY(-10.5px) translateX(2px) rotate(40deg) scaleX(0.55);
+}
+
+/* Hover tombol */
+.menu-btn:hover span {
+  transform: scaleX(1.1);
+}
+
+/* SIDEBAR */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -240px;
+  width: 220px;
+  height: 100%;
+  background-color: #1f1f1f;
+  color: #fff;
+  padding-top: 45px;
+  transition: left 0.3s ease;
+  box-sizing: border-box;
+  box-shadow: 3px 0 12px rgba(0, 0, 0, 0.4);
+  z-index: 9;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 22px;
+  text-decoration: none;
+  color: #a2a2a2;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 0.3px;
+  transition: all 0.25s ease;
+}
+
+.sidebar-menu {
+  margin-top: -300px;
+  background-color: #1f1f1f;
+}
+
+@media (max-width: 768px) {
+  .sidebar-menu {
+    margin-top: -17px;
+  }
+}
+
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* paksa ke kiri */
+  gap: -20px;                    /* jarak logo & teks */
+  padding: 10px 8px;          /* kecilin padding kiri */
+  padding-left:4px;
+  background-color: #1c1c1c;
+  border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+  box-sizing: border-box;
+}
+
+.sidebar-header img {
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  object-fit: cover;
+  filter: none !important;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-header h2 {
+  margin: 0;
+  margin-left:0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.sidebar-header:hover {
+  background-color: #252525;
+  transition: background-color 0.25s ease;
+}
+
+.sidebar a:hover {
+  background-color: #2b2b2b;
+  color: forestgreen;
+  transform: translateX(4px);
+}
+
+.sidebar a.active {
+  background-color: #2b2b2b;
+  border-left: 4px solid forestgreen;
+  color: forestgreen;
+}
+
+a.active .icon {
+  transform: scale(1.3);
+  filter: brightness(0) saturate(100%) 
+        invert(74%) sepia(96%) saturate(2343%) 
+        hue-rotate(-2deg) brightness(104%) contrast(104%);
+}
+
+.sidebar-logo {
+  width: 80px !important;
+  height: 50px !important;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.sidebar img {
+  width: 22px;
+  height: 22px;
+  filter: brightness(0) invert(1);
+  flex-shrink: 0;
+  transition: filter 0.25s ease;
+  transform 0.25s ease;
+}
+
+/* ICON SAAT AKTIF → forestgreen */
+.sidebar a.active img {
+  filter: brightness(0) saturate(100%)
+          invert(34%) sepia(98%) saturate(600%)
+          hue-rotate(80deg) brightness(90%) contrast(90%);
+  transform: scale(1.15);
+}
+
+.sidebar a:hover img {
+  filter: 
+  invert(84%) sepia(96%) saturate(3510%)
+  hue-rotate(-2deg) brightness(104%) contrast(101%);
+}
+
+.sidebar-footer {
+  margin-top :auto;
+  text-align: center;
+  padding: 8px;
+  font-size: 14px;
+  color: rgba(170,170,170,0.4);
+  border-top: 2.5px solid rgba(255,255,255,0.2);
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .header {
+    height: 46px;
+    padding: 0 50px;
+    padding-left: 55px;
+  }
+}

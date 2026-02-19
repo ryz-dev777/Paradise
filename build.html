@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hasil Build</title>
+  <link rel="stylesheet" href="sidebar.css">
+  <link rel="stylesheet" href="build.css">
+  <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+</head>
+<body data-title="Build">
+
+<div id="sidebar-container"></div>
+
+<!-- KONTEN POLLOSAN -->
+<div class="content">
+  <h1>Hasil Build</h1>
+</div>
+
+<div class="gallery">
+  <div class="frame">
+    <div class="pin"></div>
+    <img class="foto" src="build/build1.png">
+    <div class="judul-foto">Foto 1</div>
+  </div>
+  
+    <div class="frame">
+    <div class="pin"></div>
+    <img class="foto" src="build/build2.png">
+    <div class="judul-foto">Foto 2</div>
+  </div>
+  
+    <div class="frame">
+    <div class="pin"></div>
+    <img class="foto" src="build/build3.png">
+    <div class="judul-foto">Foto 3</div>
+  </div>
+  
+    <div class="frame">
+    <div class="pin"></div>
+    <img class="foto" src="build/build4.png">
+    <div class="judul-foto">Foto 4</div>
+  </div>
+  
+    <div class="frame">
+    <div class="pin"></div>
+    <img class="foto" src="build/build5.png">
+    <div class="judul-foto">Foto 5</div>
+  </div>
+</div>
+
+<!-- OVERLAY FOTO -->
+<div id="photoOverlay" class="photo-overlay" aria-hidden="true">
+  <button id="overlayClose" class="overlay-close" aria-label="Tutup">&times;</button>
+  <img id="overlayImage" src="" alt="">
+  <div id="overlayCaption" class="overlay-caption"></div>
+</div>
+
+<script>
+/* ======================================================
+   LOAD SIDEBAR + FUNGSI-FUNGSI
+====================================================== */
+fetch('sidebar.html')
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById('sidebar-container').innerHTML = html;
+
+    const sidebar = document.querySelector('.sidebar');
+    const menuBtn = document.getElementById('menuBtn');
+
+    /* SIDEBAR TOGGLE + ANIMASI MENU BTN */
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      sidebar.classList.toggle('active');
+      menuBtn.classList.toggle('active'); // animasi garis → panah
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+        sidebar.classList.remove('active');
+        menuBtn.classList.remove('active'); // reset animasi
+      }
+    });
+
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      link.addEventListener('click', () => {
+        sidebar.classList.remove('active');
+        menuBtn.classList.remove('active'); // reset animasi
+      });
+    });
+
+    /* MENANDAI HALAMAN AKTIF */
+    const currentPage = window.location.pathname.split('/').pop();
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      const target = link.getAttribute('href');
+      link.classList.remove('active');
+      if (target === currentPage) link.classList.add('active');
+    });
+
+    /* SET JUDUL HEADER */
+    const pageTitle = document.getElementById("pageTitle");
+    if (pageTitle) {
+      pageTitle.textContent = document.body.getAttribute("data-title");
+    }
+  });
+
+/* ======================================================
+   OVERLAY FOTO
+====================================================== */
+const photoOverlay = document.getElementById('photoOverlay');
+const overlayImage = document.getElementById('overlayImage');
+const overlayCaption = document.getElementById('overlayCaption');
+const overlayClose = document.getElementById('overlayClose');
+
+function openOverlay(src, caption) {
+  overlayImage.src = src;
+  overlayCaption.textContent = caption || '';
+  photoOverlay.classList.add('open');
+  photoOverlay.setAttribute('aria-hidden', 'false');
+  document.documentElement.style.overflow = 'hidden';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeOverlay() {
+  photoOverlay.classList.remove('open');
+  photoOverlay.setAttribute('aria-hidden', 'true');
+  overlayImage.src = '';
+  document.documentElement.style.overflow = '';
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.frame').forEach(frame => {
+  const img = frame.querySelector('.foto');
+  const titleEl = frame.querySelector('.judul-foto');
+  const title = titleEl ? titleEl.innerText.trim() : '';
+
+  frame.addEventListener('mouseenter', () => {
+    if ('ontouchstart' in window) return;
+    openOverlay(img.src, title);
+  });
+  frame.addEventListener('mouseleave', () => {
+    if ('ontouchstart' in window) return;
+    closeOverlay();
+  });
+
+  img.addEventListener('click', (e) => {
+    if (photoOverlay.classList.contains('open')) {
+      closeOverlay();
+    } else {
+      openOverlay(img.src, title);
+    }
+    e.stopPropagation();
+  });
+});
+
+overlayClose.addEventListener('click', closeOverlay);
+photoOverlay.addEventListener('click', (e) => {
+  if (e.target === photoOverlay) closeOverlay();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeOverlay();
+});
+
+/* ======================================================
+   RANDOM ROTASI FRAME
+====================================================== */
+const frames = document.querySelectorAll('.frame');
+
+let lastDeg = null;
+const minDeg = 0;
+const maxDeg = 4;
+
+frames.forEach(frame => {
+  let deg;
+  do {
+    const arah = Math.random() < 0.5 ? -1 : 1;
+    const besar = (Math.random() * (maxDeg - minDeg) + minDeg).toFixed(2);
+    deg = arah * besar;
+  } while (lastDeg !== null && Math.abs(deg - lastDeg) < 1.2);
+
+  lastDeg = deg;
+  frame.style.transform = `rotate(${deg}deg)`;
+  frame.style.transformOrigin = 'top center';
+});
+</script>
+
+</body>
+</html>

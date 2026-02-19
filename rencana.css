@@ -1,0 +1,111 @@
+.content {
+  max-width: 700px;
+  text-align: center;
+  margin: 30px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  border: 2px solid #ddd;
+}
+h1 {
+  color: forestgreen;
+  text-align: center;
+  font-size: 3.4em;
+  margin-bottom: 20px;
+  font-family: minecraft;
+  margin-top: -5px;
+  margin-bottom: -22px;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+}
+i {
+  font-style: italic;
+  color: #6b7280;
+  background: lime;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+b {
+  color: forestgreen; /* kuning-oranye cerah */
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  background: palegreen; /* highlight lembut */
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+strong {
+  color: forestgreen;
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+.text-box {
+  background-color: white;     /* background putih */
+  padding-left: 22px;
+  padding-right: 22px;
+  padding-top: 16px;
+  padding-bottom: 8px;
+  border-radius: 10px;         /* sudut membulat */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* bayangan lembut */
+  width: 320px;          /* ukuran menyesuaikan isi */
+  max-width: 400px;            /* batas lebar */
+  border: 1px solid #ddd;
+  display: block;
+  margin: 0 auto;
+  margin-top: 18px;
+}
+
+.judul {
+  color: forestgreen;                /* warna hitam */
+  font-weight: bold;
+  font-family: minecraft;
+  font-size: 22px;             /* ukuran judul */
+  margin-bottom: -6px;          /* jarak ke teks bawah */
+  margin-top: -2px;
+}
+
+.teks {
+  color: #aaa;                 /* abu-abu lembut */
+  font-size: 16px;             /* lebih kecil */
+  line-height: 1.5;            /* jarak antar baris */
+  border-top: 2.5px solid rgba(218,218,218,0.9);
+  borer-bottom: 2px solid rgba(221,221,221,0.7);
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+.form {
+  border: none;
+  display: block;
+  background-color: forestgreen;
+  color: white;
+  padding: 8px 139px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: center;
+  min-width: 150px;
+  font-size: 16px;
+  margin: 0 auto;
+  margin-bottom: 14px;
+  margin-top: -18px;
+}
+.terima {
+  font-size: 16px;
+  color: #bbb;
+  font-weight: bold;
+  opacity: 70%;
+  margin-left: 225px;
+  font-weight: bold;
+}
+.mungkin {
+  font-size: 12px;
+  color: orange;
+  font-weight: bold;
+  opacity: 70%;
+}
+.tidak {
+  font-size: 12px;
+  color: crimson;
+  font-weight: bold;
+  opacity: 70%;
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saran</title>
+  <link rel="stylesheet" href="rencana.css">
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body data-title="Rencana">
+
+<div id="sidebar-container"></div>
+
+<!-- KONTEN POLLOSAN -->
+<div class="content">
+  <!-- Konten halaman baru bisa ditambahkan di sini -->
+  <h1>Rencana</h1>
+</div>
+<div class="text-box">
+  <h2 class="judul">Rencana kedepannya</h2>
+  <p class="teks">Mau lebih baik dari sebelumnya, Penduduk lebih banyak, Clan lebih mandiri, Base lebih besar, Member lebih aktif</p>
+  <span class="terima">19-02-2026</span>
+</div>
+
+<script>
+/* ======================================================
+   LOAD SIDEBAR + FUNGSI-FUNGSI
+====================================================== */
+fetch('sidebar.html')
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById('sidebar-container').innerHTML = html;
+
+    const sidebar = document.querySelector('.sidebar');
+    const menuBtn = document.getElementById('menuBtn');
+
+    /* SIDEBAR TOGGLE + ANIMASI MENU BTN */
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      sidebar.classList.toggle('active');
+      menuBtn.classList.toggle('active'); // animasi garis → panah
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+        sidebar.classList.remove('active');
+        menuBtn.classList.remove('active'); // reset animasi
+      }
+    });
+
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      link.addEventListener('click', () => {
+        sidebar.classList.remove('active');
+        menuBtn.classList.remove('active'); // reset animasi
+      });
+    });
+
+    /* MENANDAI HALAMAN AKTIF */
+    const currentPage = window.location.pathname.split('/').pop();
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      const target = link.getAttribute('href');
+      link.classList.remove('active');
+      if (target === currentPage) link.classList.add('active');
+    });
+
+    /* SET JUDUL HEADER */
+    const pageTitle = document.getElementById("pageTitle");
+    if (pageTitle) {
+      pageTitle.textContent = document.body.getAttribute("data-title");
+    }
+  });
+</script>
+
+</body>
+</html>

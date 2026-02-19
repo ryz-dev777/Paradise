@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saran</title>
+  <link rel="stylesheet" href="game.css">
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body data-title="Game">
+
+<div id="sidebar-container"></div>
+
+  <div class="menu-btnn" id="menuBtnn">
+    <span class="line line1"></span>
+    <span class="line line2"></span>
+  </div>
+  
+  <!-- OVERLAY ATAS -->
+  <div class="top-overlay" id="topOverlay">
+    <h2>Ngapain Liat-liat</h2>
+    <p>Seeang dalam pengerjaan, Tunggu aja nanti, sabar ya :D</p>
+  </div>
+<!-- KONTEN POLLOSAN -->
+<div class="content">
+  <h1>Game</h1>
+</div>
+<div class="text-box">Cooming Soon</div>
+
+<script>
+/* ======================================================
+   LOAD SIDEBAR + FUNGSI-FUNGSI
+====================================================== */
+fetch('sidebar.html')
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById('sidebar-container').innerHTML = html;
+
+    const sidebar = document.querySelector('.sidebar');
+    const menuBtn = document.getElementById('menuBtn');
+
+    /* SIDEBAR TOGGLE + ANIMASI MENU BTN */
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      sidebar.classList.toggle('active');
+      menuBtn.classList.toggle('active'); // animasi garis → panah
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+        sidebar.classList.remove('active');
+        menuBtn.classList.remove('active'); // reset animasi
+      }
+    });
+
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      link.addEventListener('click', () => {
+        sidebar.classList.remove('active');
+        menuBtn.classList.remove('active'); // reset animasi
+      });
+    });
+
+    /* MENANDAI HALAMAN AKTIF */
+    const currentPage = window.location.pathname.split('/').pop();
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      const target = link.getAttribute('href');
+      link.classList.remove('active');
+      if (target === currentPage) link.classList.add('active');
+    });
+
+    /* SET JUDUL HEADER */
+    const pageTitle = document.getElementById("pageTitle");
+    if (pageTitle) {
+      pageTitle.textContent = document.body.getAttribute("data-title");
+    }
+  });
+</script>
+<script>
+  const menuBtn = document.getElementById("menuBtnn");
+  const overlay = document.getElementById("topOverlay");
+
+  menuBtn.addEventListener("click", () => {
+    menuBtn.classList.toggle("active");
+    overlay.classList.toggle("active");
+  });
+</script>
+</body>
+</html>

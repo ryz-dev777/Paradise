@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>List Anggota</title>
+  <link rel="stylesheet" href="list.css">
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body data-title="List Member">
+
+<div id="sidebar-container"></div>
+
+<!-- KONTEN -->
+<div class="content">
+  <h1>Daftar Warga Paradise</h1>
+
+  <div class="player-controls">
+    <input type="text" id="searchInput" placeholder="Search Player">
+    <button id="sortBtn">Sort A-Z / Default</button>
+    <button onclick="window.open('https://forms.gle/3z6PE2BAA2hmCYtj7', '_blank')" class="form">Form Isi List</button>
+  </div>
+
+  <!-- AUTO PLAYER LIST (DIBUAT OLEH JS) -->
+  <div class="player-list" id="playerList"></div>
+</div>
+
+<!-- OVERLAY PLAYER INFO -->
+<div id="playerOverlay" class="overlay hidden">
+  <div class="overlay-content">
+    <button class="close-overlay" onclick="closeOverlay()">✕</button>
+    <h2 id="ov-name" class="player-name"></h2>
+
+    <div class="player-info-section">
+      <canvas class="gambar-skin" id="ov-skin" width="32" height="64"></canvas>
+
+      <div class="player-details">
+        <div class="info-row"><b class="info-label">Discord</b><span class="colon">:</span><span id="ov-discord"></span></div>
+        <div class="info-row"><b class="info-label">Rank</b><span class="colon">:</span><span id="ov-rank"></span></div>
+        <div class="info-row"><b class="info-label">Role</b><span class="colon">:</span><span id="ov-role"></span></div>
+        <div class="info-row"><b class="info-label">Waktu</b><span class="colon">:</span><span id="ov-timezone"></span></div>
+        <div class="info-row"><b class="info-label">Luang</b><span class="colon">:</span><span id="ov-free"></span></div>
+        <div class="info-row"><b class="info-label">Hobi</b><span class="colon">:</span><span id="ov-hobby"></span></div>
+        <div class="info-row"><b class="info-label">Cita²</b><span class="colon">:</span><span id="ov-cita"></span></div>
+      </div>
+
+      <div class="player-desc">
+        <div class="info-row"><b>Moto :</b><br><span id="ov-moto"></span></div>
+        <div class="info-row"><b>Tentang :</b><br><span id="ov-about"></span><br><br><b>______________________________________</b></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="list.js"></script>
+</body>
+</html>

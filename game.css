@@ -1,0 +1,181 @@
+.content {
+  max-width: 700px;
+  text-align: center;
+  margin: 30px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 0px;
+  bo-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  border-bottom: 2.5px solid #ddd;
+  position: relative;
+  z-index: 8;
+}
+h1 {
+  color: #f59e0b;
+  text-align: left;
+  font-size: 2em;
+  margin-bottom: 24px;
+  font-family: minecraft;
+  margin-top: -5px;
+  margin-bottom: -22px;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+}
+i {
+  font-style: italic;
+  color: #6b7280;
+  background: #fff4cc;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+b {
+  color: #f59e0b; /* kuning-oranye cerah */
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  background: #fff3bf; /* highlight lembut */
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+strong {
+  color: #f59e0b;
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+.text-box {
+  background-color: white;     /* background putih */
+  padding-left: 22px;
+  padding-right: 22px;
+  padding-top: 16px;
+  padding-bottom: 8px;
+  border-radius: 10px;         /* sudut membulat */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* bayangan lembut */
+  width: 320px;          /* ukuran menyesuaikan isi */
+  max-width: 400px;            /* batas lebar */
+  border: 1px solid #ddd;
+  display: block;
+  margin: 0 auto;
+  margin-top: 18px;
+}
+
+.judul {
+  color: black;                /* warna hitam */
+  font-weight: bold;           /* tebal */
+  font-size: 20px;             /* ukuran judul */
+  margin-bottom: -6px;          /* jarak ke teks bawah */
+  margin-top: -2px;
+}
+
+.teks {
+  color: #666;                 /* abu-abu lembut */
+  font-size: 14px;             /* lebih kecil */
+  line-height: 1.5;            /* jarak antar baris */
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 0px;
+}
+.form {
+  border: none;
+  display: block;
+  background-color: #f7b500;
+  color: white;
+  padding: 8px 139px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: center;
+  min-width: 150px;
+  font-size: 16px;
+  margin: 0 auto;
+  margin-bottom: 14px;
+  margin-top: -18px;
+}
+.terima {
+  font-size: 12px;
+  color: green;
+  font-weight: bold;
+  opacity: 70%;
+}
+.mungkin {
+  font-size: 12px;
+  color: orange;
+  font-weight: bold;
+  opacity: 70%;
+}
+.tidak {
+  font-size: 12px;
+  color: crimson;
+  font-weight: bold;
+  opacity: 70%;
+}
+/* ====================== TOMBOL MENU ====================== */
+  .menu-btnn {
+    position: fixed;
+    top: 50px;
+    right: 10px;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 7px;
+    cursor: pointer;
+    z-index: 9;
+    padding: 0px;
+    border: 3px solid gray;
+    border-radius: 6px;
+    background: white;
+  }
+
+  .menu-btnn .line {
+    height: 4px;
+    background: gray;
+    border-radius: 10px;
+    transition: 0.3s ease;
+  }
+
+  /* Garis atas pendek */
+  .menu-btnn .line1 {
+    width: 26px;
+    align-self: flex-end;
+    margin-right: 4.5px;
+  }
+
+  /* Garis bawah lebih pendek */
+  .menu-btnn .line2 {
+    width: 16px;
+    align-self: flex-end;
+    margin-right: 4.5px;
+  }
+
+  /* Animasi jadi X */
+  .menu-btnn.active .line1 {
+    transform: translateY(5.5px) rotate(-45deg);
+  }
+
+  .menu-btnn.active .line2 {
+    width: 26px;
+    transform: translateY(-5.5px) rotate(45deg);
+  }
+
+
+
+  /* ====================== OVERLAY DARI ATAS ====================== */
+  .top-overlay {
+    position: fixed;
+    top: -120%;         /* disembunyikan di atas */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    transition: 0.4s ease;  /* animasi slide turun */
+    z-index: 7;
+    padding: 60px 20px;
+  }
+
+  .top-overlay.active {
+    top: 60px;             /* turun ke bawah */
+  }
+
+  .top-overlay h2 {
+    margin-top: 0;
+  }

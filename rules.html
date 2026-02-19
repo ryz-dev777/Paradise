@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rules</title>
+  <link rel="stylesheet" href="rules.css">
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body data-title="Rules">
+
+<div id="sidebar-container"></div>
+
+<!-- KONTEN POLLOSAN -->
+<div class="content">
+  <div class="rules-container">
+    <h1>Rules</h1>
+
+    <p class="rules-intro">
+      Harap baca dan pahami semua peraturan di bawah ini agar suasana komunitas tetap nyaman dan menyenangkan bagi semua anggota.
+    </p>
+
+    <div class="rules-list">
+
+      <div class="rule">
+        <h2>1. Aktif</h2>
+        <p>Ngobrol bareng di grup ikut nimbrung jangan diem aja</p>
+      </div>
+
+      <div class="rule">
+        <h2>2. Jangan Baperan</h2>
+        <p>Biar asik di ajak bercanda, tapi....</p>
+      </div>
+
+      <div class="rule">
+        <h2>3. Bercanda Jangan Berlebihan</h2>
+        <p>Jangan membuat orang lain tidak nyaman atau risih</p>
+      </div>
+
+      <div class="rule">
+        <h2>4. Jangan Spam</h2>
+        <p>Jangan spam di grup WhatsApp, karena bisa menggangu kenyamanan</p>
+      </div>
+
+      <div class="rule">
+        <h2>5. Toxic Jangan berlebihan</h2>
+        <p>Jangan toxic Berlebihan di grup WhatsApp, karena bisa menggangu kenyamanan</p>
+      </div>
+
+      <div class="rule">
+        <h2>6. Ikuti Arahan Admin</h2>
+        <p>Admin berhak mengatur, memperingatkan, atau menindak anggota yang melanggar aturan demi menjaga kenyamanan bersama.</p>
+      </div>
+
+      <div class="rule">
+        <h2>7. Konsekuensi Pelanggaran</h2>
+        <p>Peringatan pertama akan diberikan secara pribadi. Pelanggaran berulang dapat berujung pada penghapusan keanggotaan.</p>
+      </div>
+
+      <div class="rule">
+        <h2>8. Toleransi</h2>
+        <p>Jangan menghina atau merendahkan agama lain, sebaik nya tidak usah bahas agama</p>
+      </div>
+
+      <div class="rule">
+        <h2>9. Jangan Bertengkar Antar Member</h2>
+        <p>Jika terjadi sesuai di harapkan bisa meminta maaf...</p>
+      </div>
+
+      <div class="rule">
+        <h2>10. Patuhi Rules PN</h2>
+        <p>Jika melangar mungkin akan ada konsekuensi nya tergantung jumlah warn.</p>
+      </div>
+
+      <div class="rule">
+      <h2>11. Lainnya..</h2>
+      <p>Untuk rules versi lengkapnya ada di grup whatsapp.</p>
+      </div>
+
+    </div>
+
+    <p class="rules-footer">
+      Dengan tetap bergabung, kamu dianggap telah membaca dan menyetujui semua peraturan di atas.  
+      Mari kita jaga komunitas ini tetap positif, aktif, dan bersahabat!
+    </p>
+  </div>
+</div>
+
+
+<script>
+/* ======================================================
+   LOAD SIDEBAR + FUNGSI-FUNGSI
+====================================================== */
+fetch('sidebar.html')
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById('sidebar-container').innerHTML = html;
+
+    const sidebar = document.querySelector('.sidebar');
+    const menuBtn = document.getElementById('menuBtn');
+
+    /* SIDEBAR TOGGLE + ANIMASI MENU BTN */
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      sidebar.classList.toggle('active');
+      menuBtn.classList.toggle('active'); // animasi garis → panah
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+        sidebar.classList.remove('active');
+        menuBtn.classList.remove('active'); // reset animasi
+      }
+    });
+
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      link.addEventListener('click', () => {
+        sidebar.classList.remove('active');
+        menuBtn.classList.remove('active'); // reset animasi
+      });
+    });
+
+    /* MENANDAI HALAMAN AKTIF */
+    const currentPage = window.location.pathname.split('/').pop();
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      const target = link.getAttribute('href');
+      link.classList.remove('active');
+      if (target === currentPage) link.classList.add('active');
+    });
+
+    /* SET JUDUL HEADER */
+    const pageTitle = document.getElementById("pageTitle");
+    if (pageTitle) {
+      pageTitle.textContent = document.body.getAttribute("data-title");
+    }
+  });
+
+
+/* ======================================================
+   HIGHLIGHT RULES KLIK
+====================================================== */
+document.querySelectorAll('.rule p').forEach(p => {
+  p.addEventListener('click', function() {
+    document.querySelectorAll('.rule p').forEach(el => el.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>

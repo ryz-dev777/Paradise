@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saran</title>
+  <link rel="stylesheet" href="update.css">
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body data-title="Update">
+
+<div id="sidebar-container"></div>
+
+<!-- KONTEN POLLOSAN -->
+<div class="content">
+  <!-- Konten halaman baru bisa ditambahkan di sini -->
+  <h1>Update</h1>
+</div>
+<div class="text-box">
+  <h2 class="judul">Versi 0.1</h2>
+  <p class="teks">Kali ini belum ada update atau fitur yg di Tambahkan:</p>
+  
+  <p class="teks3">Nantikan Update Berikut nya, jika ada saran/lapor bug silahkan tag @~Ryz💤 Di Grup  WhatsApp Paradise atau Chat Pribadi</p>
+  <span class="terima">21-02-2026</span>
+</div>
+
+<script>
+/* ======================================================
+   LOAD SIDEBAR + FUNGSI-FUNGSI
+====================================================== */
+fetch('sidebar.html')
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById('sidebar-container').innerHTML = html;
+
+    const sidebar = document.querySelector('.sidebar');
+    const menuBtn = document.getElementById('menuBtn');
+
+    /* SIDEBAR TOGGLE + ANIMASI MENU BTN */
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      sidebar.classList.toggle('active');
+      menuBtn.classList.toggle('active'); // animasi garis → panah
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+        sidebar.classList.remove('active');
+        menuBtn.classList.remove('active'); // reset animasi
+      }
+    });
+
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      link.addEventListener('click', () => {
+        sidebar.classList.remove('active');
+        menuBtn.classList.remove('active'); // reset animasi
+      });
+    });
+
+    /* MENANDAI HALAMAN AKTIF */
+    const currentPage = window.location.pathname.split('/').pop();
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      const target = link.getAttribute('href');
+      link.classList.remove('active');
+      if (target === currentPage) link.classList.add('active');
+    });
+
+    /* SET JUDUL HEADER */
+    const pageTitle = document.getElementById("pageTitle");
+    if (pageTitle) {
+      pageTitle.textContent = document.body.getAttribute("data-title");
+    }
+  });
+</script>
+
+</body>
+</html>

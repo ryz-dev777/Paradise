@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pasang Skin</title>
+  <link rel="stylesheet" href="skin.css">
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body data-title="Pasan Skin">
+
+<div id="sidebar-container"></div>
+
+<!-- KONTEN PASANG SKIN -->
+<div class="content">
+  <h1><b>Pasang<br>Template</b></h1>
+
+  <div class="ytta">
+    <label><b>Pilih resolusi :</b></label>
+    <select id="model">
+      <option value="64">64 Pixel (Standar)</option>
+      <option value="128">128 Pixle (HD)</option>
+    </select>
+  </div>
+
+  <div class="ytta">
+    <label><b>Upload Skin :</b></label>
+    <input type="file" id="skinInput" accept="image/png"><br>
+  </div>
+
+  <button id="processBtn">Pasang Baju</button>
+  <button id="downloadBtn" disabled>Download Skin</button>
+
+  <div id="progressContainer">
+    <div id="progressBar"></div>
+  </div>
+  <div id="statusText"></div>
+
+  <canvas id="canvas" width="64" height="64"></canvas>
+</div>
+
+<!-- SCRIPT SIDEBAR -->
+<script>
+/* ======================================================
+   LOAD SIDEBAR + FUNGSI-FUNGSI
+====================================================== */
+fetch('sidebar.html')
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById('sidebar-container').innerHTML = html;
+
+    const sidebar = document.querySelector('.sidebar');
+    const menuBtn = document.getElementById('menuBtn');
+
+    /* SIDEBAR TOGGLE + ANIMASI MENU BTN */
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      sidebar.classList.toggle('active');
+      menuBtn.classList.toggle('active'); // animasi garis → panah
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+        sidebar.classList.remove('active');
+        menuBtn.classList.remove('active'); // reset animasi
+      }
+    });
+
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      link.addEventListener('click', () => {
+        sidebar.classList.remove('active');
+        menuBtn.classList.remove('active'); // reset animasi
+      });
+    });
+
+    /* MENANDAI HALAMAN AKTIF */
+    const currentPage = window.location.pathname.split('/').pop();
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      const target = link.getAttribute('href');
+      link.classList.remove('active');
+      if (target === currentPage) link.classList.add('active');
+    });
+
+    /* SET JUDUL HEADER */
+    const pageTitle = document.getElementById("pageTitle");
+    if (pageTitle) {
+      pageTitle.textContent = document.body.getAttribute("data-title");
+    }
+  });
+
+</script>
+
+<!-- SCRIPT PASANG SKIN DENGAN VALIDASI RESOLUSI -->
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+const skinInput = document.getElementById("skinInput");
+const processBtn = document.getElementById("processBtn");
+const downloadBtn = document.getElementById("downloadBtn");
+const modelSelect = document.getElementById("model");
+const progressContainer = document.getElementById("progressContainer");
+const progressBar = document.getElementById("progressBar");
+const statusText = document.getElementById("statusText");
+
+function updateProgress(percent, text) {
+  progressContainer.style.display = "block";
+  progressBar.style.width = percent + "%";
+  statusText.textContent = text;
+}
+
+processBtn.addEventListener("click", () => {
+  const file = skinInput.files[0];
+  if (!file) {
+    alert("Upload skin dulu!");
+    return;
+  }
+
+  const res = modelSelect.value;
+  const templateSrc = res === "128"
+    ? "template/128px.png"
+    : "template/64px.png";
+
+  updateProgress(10, "Memuat gambar...");
+
+  const skinImg = new Image();
+  const outfitImg = new Image();
+
+  skinImg.onload = () => {
+    // Validasi ukuran
+    if (![64,128].includes(skinImg.width) || skinImg.width !== skinImg.height) {
+      updateProgress(0, "❌ Ukuran skin harus 64x64 atau 128x128");
+      return;
+    }
+
+    if (skinImg.width != res) {
+      updateProgress(0, `⚠️ Skin ${skinImg.width}px, ubah pilihan ke ${skinImg.width}px`);
+      return;
+    }
+
+    outfitImg.onload = () => {
+      updateProgress(60, "Menggabungkan skin...");
+
+      canvas.width = skinImg.width;
+      canvas.height = skinImg.height;
+
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+
+      // gambar skin asli
+      ctx.drawImage(skinImg, 0, 0);
+
+      // tempel baju (overlay)
+      ctx.drawImage(outfitImg, 0, 0, canvas.width, canvas.height);
+
+      updateProgress(100, "✅ Selesai!");
+      downloadBtn.disabled = false;
+    };
+
+    outfitImg.onerror = () => {
+      updateProgress(0, "❌ Template tidak ditemukan");
+    };
+
+    outfitImg.src = templateSrc;
+  };
+
+  skinImg.onerror = () => {
+    updateProgress(0, "❌ File bukan gambar valid");
+  };
+
+  skinImg.src = URL.createObjectURL(file);
+});
+
+downloadBtn.addEventListener("click", () => {
+  const link = document.createElement("a");
+  link.download = "skin-jadi.png";
+  link.href = canvas.toDataURL("image/png");
+  link.click();
+});
+</script>
+
+</body>
+</html>

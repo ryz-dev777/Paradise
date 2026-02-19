@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beranda</title>
+  <link rel="stylesheet" href="beranda.css">
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body data-title="Beranda">
+
+<!-- TEMPAT SIDEBAR DIMASUKKAN -->
+<div id="sidebar-container"></div>
+
+<!-- KONTEN -->
+<div class="content">
+  <h1>Selamat Datang!</h1>
+
+  <p class="deskripsi">
+    Halo teman-teman 👋 Apakah kalian sudah mengenal Paradise? Paradise adalah sebuah tim Minecraft yang berasal dari server ProwNetwork. Tim ini resmi dibentuk pada <br>
+    <b>31 desember 2023</b> dan awalnya didirikan oleh satu orang dengan <br>
+  </p>
+
+  <div class="player-section">
+    <h3 style="font-weight:bold; margin-bottom:10px;">Gamer Tag :</h3>
+
+    <!-- Player 1 -->
+    <div class="player">
+      <button class="player-btn">raffiyeagerMS</button>
+      <div class="player-info">
+        <p><strong>WhatsApp:</strong> 088218238870</p>
+        <p><strong>Discord:</strong> malash</p>
+      </div>
+    </div>
+  </div>
+
+  <p class="deskripsi">
+    Sebelum dikenal sebagai Paradise, tim ini memiliki nama awal <b>PlangPolitan</b>. Seiring waktu, visi dan tujuan kami berkembang menjadi lebih besar. <i>Paradise</i> dibentuk bukan hanya untuk menjadi tim yang kuat, tetapi juga untuk membangun kebersamaan. Di sini, kalian bisa bermain bersama, membangun base, membuat farm, dan berkembang sebagai satu komunitas yang solid.Kami percaya bahwa kekuatan sejati bukan hanya berasal dari skill, tetapi dari kerja sama, loyalitas, dan rasa saling menjaga.
+  Selamat datang di <i>Paradise</i>.      
+  Mari tumbuh dan berkembang bersama
+  </p>
+</div>
+<div class="container">
+
+  <!-- TikTok -->
+  <div class="btn tiktok" onclick="goTikTok()">
+    <img src="media/tt.png">
+    <span>TikTok</span>
+  </div>
+
+</div>
+
+<!-- POPUP PASSWORD -->
+<div class="popup-bg" id="popup">
+  <div class="popup-box" id="popupBox">
+    <h3 id="popupTitle">Masukkan Password</h3>
+
+    <div class="input-container">
+      <input type="password" id="pwInput" placeholder=" " autocomplete="off">
+      <label id="pwLabel">Password...</label>
+    </div>
+
+    <button onclick="submitPW()">Masuk</button>
+  </div>
+</div>
+
+<script>
+/* ======================================================
+   LOAD SIDEBAR + FUNGSI-FUNGSI
+====================================================== */
+fetch('sidebar.html')
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById('sidebar-container').innerHTML = html;
+
+    const sidebar = document.querySelector('.sidebar');
+    const menuBtn = document.getElementById('menuBtn');
+
+    /* SIDEBAR TOGGLE + ANIMASI MENU BTN */
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      sidebar.classList.toggle('active');
+      menuBtn.classList.toggle('active'); // animasi garis → panah
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+        sidebar.classList.remove('active');
+        menuBtn.classList.remove('active'); // reset animasi
+      }
+    });
+
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      link.addEventListener('click', () => {
+        sidebar.classList.remove('active');
+        menuBtn.classList.remove('active'); // reset animasi
+      });
+    });
+
+    /* MENANDAI HALAMAN AKTIF */
+    const currentPage = window.location.pathname.split('/').pop();
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      const target = link.getAttribute('href');
+      link.classList.remove('active');
+      if (target === currentPage) link.classList.add('active');
+    });
+
+    /* SET JUDUL HEADER */
+    const pageTitle = document.getElementById("pageTitle");
+    if (pageTitle) {
+      pageTitle.textContent = document.body.getAttribute("data-title");
+    }
+  });
+
+/* ======================================================
+   DROPDOWN PLAYER
+====================================================== */
+const players = document.querySelectorAll('.player');
+
+players.forEach(player => {
+  const btn = player.querySelector('.player-btn');
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+
+    players.forEach(p => {
+      if (p !== player) p.classList.remove('active');
+    });
+
+    player.classList.toggle('active');
+  });
+});
+
+document.addEventListener('click', () => {
+  players.forEach(p => p.classList.remove('active'));
+});
+</script>
+<script>
+// PASSWORD
+const PASSWORD_WA = "4MB0N";
+const PASSWORD_DC = "4MB0N";
+
+// LINK TUJUAN
+const linkTiktok = "https://vt.tiktok.com/ZSaRpwDgh/";
+const linkWA = "https://chat.whatsapp.com/DhSJNnaNSXVGOXpYijvfjR?mode=wwt";
+const linkDiscord = "https://discord.gg/kNcNkh2ve3";
+
+let currentTarget = "";
+
+// === BUKA POPUP ===
+function goTikTok() {
+  window.location.href = linkTiktok;
+}
+
+function openPopup(target) {
+  currentTarget = target;
+  const popup = document.getElementById("popup");
+  const label = document.getElementById("pwLabel");
+
+  popup.style.display = "flex";
+
+  if (target === "wa") {
+    document.getElementById("popupTitle").innerText =
+      "Password WhatsApp (ada di chanel Deskripsi grup Discord)";
+    label.innerText = "Password WhatsApp";
+  }
+
+  if (target === "dc") {
+    document.getElementById("popupTitle").innerText =
+      "Password Discord (ada di deskripsi Grup WhatsApp)";
+    label.innerText = "Password Discord";
+  }
+
+  document.getElementById("pwInput").value = "";
+}
+
+// === SUBMIT PASSWORD ===
+function submitPW() {
+  let pw = document.getElementById("pwInput").value;
+
+  if (currentTarget === "wa") {
+    if (pw === PASSWORD_WA) window.location.href = linkWA;
+    else alert("Password WhatsApp salah!");
+  }
+
+  if (currentTarget === "dc") {
+    if (pw === PASSWORD_DC) window.location.href = linkDiscord;
+    else alert("Password Discord salah!");
+  }
+
+  document.getElementById("popup").style.display = "none";
+}
+
+// === TUTUP POPUP KETIKA KLIK DI LUAR BOX ===
+document.getElementById("popup").addEventListener("click", function(e){
+  if (e.target === this) {
+    this.style.display = "none";
+  }
+});
+</script>
+</body>
+</html>
